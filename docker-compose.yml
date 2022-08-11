@@ -9,9 +9,8 @@ services:
      - 81:81
      - 443:443
     volumes:
-     - /mnt/nginxpm/config.json:/app/config/production.json
-     - /mnt/nginxpm/data:/data
-     - /mnt/letsencrypt:/etc/letsencrypt
+     - ./nginx:/data
+     - ./letsencrypt:/etc/letsencrypt
     networks:
      - odoo 
     logging:
@@ -55,7 +54,7 @@ services:
       POSTGRES_PASSWORD: odoo
       POSTGRES_USER: odoo
     volumes:
-     - /mnt/postgresql:/var/lib/postgresql/data/pgdata
+     - ./postgresql:/var/lib/postgresql/data/pgdata
     networks:
      - odoo
     logging:
@@ -63,24 +62,25 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+
+
   odoo14:
     image: odoo:14.0
     environment:
       test: test
     volumes:
-     - /mnt/odoo/data:/var/lib/odoo
-     - /mnt/odoo/addons-14:/mnt/extra-addons
-     - /mnt/odoo/odoo-14.conf:/etc/odoo/odoo.conf
+     - ./odoo/data:/var/lib/odoo
+     - ./odoo/extra-addons:/mnt/extra-addons
+     - ./odoo/odoo.conf:/etc/odoo/odoo.conf
     networks:
      - odoo
     logging:
       driver: none
     deploy:
       restart_policy:
-        condition: on-failure		
+        condition: on-failure
       
     
 networks:
-  
   odoo:
   
