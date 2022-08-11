@@ -18,8 +18,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        
-  
+
+
   smtp:
     image: ghcr.io/viraweb123/postfixadmin-postfix:0.1.0
     environment:
@@ -31,7 +31,7 @@ services:
       POSTFIX_DB_PASSWORD: odoo
       POSTFIX_DB_TYPE: pgsql
       POSTFIX_DB_USER: odoo
-      POSTFIX_mynetworks: 11.0.0.0/16
+      POSTFIX_mynetworks: 10.5.0.0/16
       POSTFIX_mynetworks_style: subnet
       TZ: Europe/Amsterdam
     networks:
@@ -41,8 +41,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-  
-  
+
+
   postgres13:
     image: postgres:13
     labels:
@@ -79,8 +79,14 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-      
-    
+
+
 networks:
   odoo:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
+
   
