@@ -19,7 +19,6 @@ services:
       restart_policy:
         condition: on-failure
 
-
   smtp:
     image: ghcr.io/viraweb123/postfixadmin-postfix:0.1.0
     environment:
@@ -42,7 +41,6 @@ services:
       restart_policy:
         condition: on-failure
 
-
   postgres13:
     image: postgres:13
     labels:
@@ -62,7 +60,6 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-
 
   odoo14:
     image: odoo:14.0
